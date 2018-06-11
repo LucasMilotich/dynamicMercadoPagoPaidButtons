@@ -5,27 +5,27 @@ var Schema = mongoose.Schema;
 var LinkSchema = new Schema({
   productCode: {
     type: String,
-    required: 'Kindly enter the productCode'
+    required: 'Por favor agregar productCode'
   },
   productName: {
     type: String,
-    required: 'Kindly enter the productName'
+    required: 'Por favor agregar productName'
   },
   buttonTitle: {
     type: String,
-    required: 'Kindly enter the buttonTitle'
+    required: 'Por favor agregar buttonTitle'
   },
   buttonQuantity: {
     type: Number,
-    required: 'Kindly enter the buttonQuantity'
+    required: 'Por favor agregar buttonQuantity'
   },
   buttonPrice: {
     type: Number,
-    required: 'Kindly enter the buttonPrice'
+    required: 'Por favor agregar buttonPrice'
   },
   buttonLink: {
     type: String,
-    required: 'Kindly enter the buttonLink'
+    required: 'Por favor agregar buttonLink'
   },
   Created_date: {
     type: Date,
