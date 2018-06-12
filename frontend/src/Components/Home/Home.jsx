@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
-import EditButtonForm from '../EditButtonForm';
+import EditButtonForm from '../EditButtonForm/EditButtonForm';
 
 
 const styles = theme => ({
