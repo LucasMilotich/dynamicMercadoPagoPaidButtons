@@ -54,7 +54,7 @@ exports.update_a_link = function(req, res) {
 exports.delete_a_link = function(req, res) {
   console.log("delete_a_link :"+req.params.productCode);
   Link.remove({
-    _id: req.params.linkId
+    productCode: req.params.productCode
   }, function(err, link) {
     if (err)
       res.send(err);
