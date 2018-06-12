@@ -14,18 +14,21 @@ exports.list_all_items = function(req, res) {
 };
 
 exports.create_an_item = function(req, res) {
-  var new_link = new Item(req.body);
-  new_link.save(function(err, item) {
-    if (err)
-      res.send(err);
+  var new_item = new Item(req.body);
 
-    generarLinkMP(item).then(function (unLink){
-      console.log("link: "+unLink);
-      item.buttonLink=unLink;
-      console.log(item);
+  generarLinkMP(new_item).then(function (unLink){
+    console.log("link: "+unLink);
+    new_item.buttonLink=unLink;
+    console.log(new_item);
+
+    new_item.save(function(err, item) {
+      if (err)
+        res.send(err);
       res.json(item);  
     });
+
   });
+
 };
 
 
@@ -49,18 +52,18 @@ exports.read_an_item_by_ProductCode = function(req, res) {
 
 exports.update_an_item = function(req, res) {
   console.log("update_an_item :" + req.params.productCode);
-  Item.findOneAndUpdate({productCode: req.params.productCode}, req.body, {new: true}, function(err, item) {
-    if (err)
-      res.send(err);
 
-    generarLinkMP(item).then(function (unLink){
-      console.log("link: "+unLink);
-      item.buttonLink=unLink;
-      console.log(item);
+  generarLinkMP(req.body).then(function (unLink){
+    console.log("link: "+unLink);
+    req.body.buttonLink=unLink;
+
+    Item.findOneAndUpdate({productCode: req.params.productCode}, req.body, {new: true}, function(err, item) {
+      if (err)
+        res.send(err);
       res.json(item);  
     });
-
   });
+  
 };
 
 
@@ -78,8 +81,7 @@ exports.delete_an_item = function(req, res) {
 function generarLinkMP(item){
   return new Promise(function (fulfill, reject){
    var MP = require ("mercadopago");
-  var mp = new MP ("1488228270354975", "ruoQpNwW3bloRs0fmggUngxsYIz4umVv");
-  // var mp = new MP ("CLIENT_ID", "CLIENT_SECRET");
+  var mp = new MP ("CLIENT_ID", "CLIENT_SECRET");
   var preference = {
     "items": [
     {
