@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
-import EditButtonForm from '../EditButtonForm';
+import EditButtonForm from '../EditButtonForm/EditButtonForm';
 
 
 const styles = theme => ({
@@ -57,9 +57,9 @@ class Home extends Component {
             <TableCell string>Title</TableCell>
             <TableCell numeric>Quantity</TableCell>
             <TableCell numeric>Price</TableCell>
-            <TableCell numeric>Link</TableCell>
             <TableCell numeric>Product code</TableCell>
             <TableCell numeric>Product name</TableCell>
+            <TableCell numeric>Link</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
