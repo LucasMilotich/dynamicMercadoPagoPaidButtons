@@ -32,27 +32,28 @@ save(){
     if (elementToUpdate != null) {
         
         this.update()
+        alert(JSON.stringify(this.state.data))
 
     } else {
         this.create()
         //save new row
     }
-    alert(JSON.stringify(this.state.data))
+
 
    
   
 }
 create(){
-    fetch('http://localhost:8080/links', 
+    fetch('http://localhost:8080/items', 
     {method:'POST',body: this.state.data})
-    .then(result => alert(result.json()))
+    .then(result => result.json().then( data => alert(JSON.stringify(data))))
     .catch(err => { console.error(err.toString()) })
 }
 
 update(){
-    fetch('http://localhost:8080/links/' + this.state.data.productCode,
+    fetch('http://localhost:8080/items/' + this.state.data.productCode,
     {method:'PUT',body: this.state.data})
-    .then(result => alert(result.json()))
+    .then(result => result.json().then( data => alert(JSON.stringify(data))))
     .catch(err => { console.error(err.toString()) })
 }
 
