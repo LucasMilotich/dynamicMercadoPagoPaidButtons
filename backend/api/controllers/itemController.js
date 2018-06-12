@@ -78,7 +78,8 @@ exports.delete_an_item = function(req, res) {
 function generarLinkMP(item){
   return new Promise(function (fulfill, reject){
    var MP = require ("mercadopago");
-  var mp = new MP ("CLIENT_ID", "CLIENT_SECRET");
+  var mp = new MP ("1488228270354975", "ruoQpNwW3bloRs0fmggUngxsYIz4umVv");
+  // var mp = new MP ("CLIENT_ID", "CLIENT_SECRET");
   var preference = {
     "items": [
     {
