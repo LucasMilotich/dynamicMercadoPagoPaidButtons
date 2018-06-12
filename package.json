@@ -1,0 +1,22 @@
+{
+  "name": "dynamicmercadopagopaidbuttons",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run-front": "cd fronend && npm start",
+    "run-back": "cd backend && npm start",
+    "run": "npm run-back && npm run-front"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasMilotich/dynamicMercadoPagoPaidButtons.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasMilotich/dynamicMercadoPagoPaidButtons/issues"
+  },
+  "homepage": "https://github.com/LucasMilotich/dynamicMercadoPagoPaidButtons#readme"
+}

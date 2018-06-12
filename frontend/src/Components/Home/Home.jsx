@@ -7,6 +7,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Checkbox from '@material-ui/core/Checkbox';
+
 
 const styles = theme => ({
     root: {
@@ -32,7 +34,7 @@ class Home extends Component {
       }
 
       componentDidMount(){
-          fetch('localhost:8080/links').then(result => result.json()).then(rows => this.setState({data = rows}))
+          fetch('localhost:3000/links').then(result => result.json()).then(rows => this.setState({data : rows})).catch(err => {console.error(err.toString())})
       }
      
       isSelected = id => this.state.selected != null;
@@ -40,14 +42,14 @@ class Home extends Component {
       handleClick = (event, id) => {
           this.setState({
               selected : id,
-              selectedRow : data[id]
+              selectedRow : this.state.data[id]
           })
       }
 
     render() {
       return (
-        <Paper className={classes.root}>
-        <Table className={classes.table}>
+        <Paper className={styles.root}>
+        <Table className={styles.table}>
         <TableHead>
           <TableRow>
             <TableCell>Title</TableCell>
@@ -65,12 +67,12 @@ class Home extends Component {
               hover
               onClick={event => this.handleClick(event, n.id)}
               role="checkbox"
-              aria-checked={isSelected}
+              aria-checked={this.state.selected}
               tabIndex={-1}
               key={n.id}
-              selected={isSelected}>
+              selected={this.state.selected}>
               <TableCell padding="checkbox">
-                      <Checkbox checked={isSelected} />
+                      <Checkbox checked={this.state.selected} />
                     </TableCell>
                 <TableCell component="th" scope="row">
                   {n.name}
