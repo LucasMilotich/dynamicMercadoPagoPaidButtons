@@ -12,12 +12,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const styles = theme => ({
     root: {
-      width: '100%',
-      marginTop: theme.spacing.unit * 3,
-      overflowX: 'auto',
+      // width: '100%',
+      // marginTop: theme.spacing.unit * 3,
+      // overflowX: 'auto',
     },
     table: {
-      minWidth: 700,
+      // minWidth: 700,
     },
   });
 
@@ -34,7 +34,7 @@ class Home extends Component {
       }
 
       componentDidMount(){
-          fetch('localhost:3000/links').then(result => result.json()).then(rows => this.setState({data : rows})).catch(err => {console.error(err.toString())})
+          fetch('http://localhost:8080/links').then(result => result.json()).then(rows => this.setState({data : rows})).catch(err => {console.error(err.toString())})
       }
      
       isSelected = id => this.state.selected != null;
@@ -52,7 +52,8 @@ class Home extends Component {
         <Table className={styles.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Title</TableCell>
+            <TableCell>Seleccionar</TableCell>
+            <TableCell string>Title</TableCell>
             <TableCell numeric>Quantity</TableCell>
             <TableCell numeric>Price</TableCell>
             <TableCell numeric>Link</TableCell>
@@ -74,9 +75,6 @@ class Home extends Component {
               <TableCell padding="checkbox">
                       <Checkbox checked={this.state.selected} />
                     </TableCell>
-                <TableCell component="th" scope="row">
-                  {n.name}
-                </TableCell>
                 <TableCell numeric>{n.buttonTitle}</TableCell>
                 <TableCell numeric>{n.buttonQuantity}</TableCell>
                 <TableCell numeric>{n.buttonPrice}</TableCell>
