@@ -52,7 +52,8 @@ create(){
 
 update(){
     fetch('http://localhost:8080/items/' + this.state.data.productCode,
-    {method:'PUT',body: JSON.stringify(this.state.data)}) 
+    {method:'PUT',body: JSON.stringify(this.state.data),    headers: {"Content-Type": "application/json"}
+}) 
     .then(result => result.json().then( data => alert(JSON.stringify(data))))
     .catch(err => { console.error(err.toString()) })
 }
