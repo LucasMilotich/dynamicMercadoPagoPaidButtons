@@ -35,7 +35,7 @@ class Home extends Component {
       }
 
       componentDidMount(){
-          fetch('http://localhost:8080/links').then(result => result.json()).then(rows => this.setState({data : rows})).catch(err => {console.error(err.toString())})
+          fetch('http://localhost:8080/items').then(result => result.json()).then(rows => this.setState({data : rows})).catch(err => {console.error(err.toString())})
       }
      
       isSelected = id => this.state.selected != null;
