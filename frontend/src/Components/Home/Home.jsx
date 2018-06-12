@@ -56,9 +56,9 @@ class Home extends Component {
             <TableCell string>Title</TableCell>
             <TableCell numeric>Quantity</TableCell>
             <TableCell numeric>Price</TableCell>
-            <TableCell numeric>Link</TableCell>
             <TableCell numeric>Product code</TableCell>
             <TableCell numeric>Product name</TableCell>
+            <TableCell numeric>Link</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
