@@ -52,7 +52,7 @@ create(){
 
 update(){
     fetch('http://localhost:8080/items/' + this.state.data.productCode,
-    {method:'PUT',body: this.state.data})
+    {method:'PUT',body: JSON.stringify(this.state.data)}) 
     .then(result => result.json().then( data => alert(JSON.stringify(data))))
     .catch(err => { console.error(err.toString()) })
 }
@@ -68,7 +68,7 @@ handleChange = name => event =>{
         break;
         case "buttonQuantity":
         var data = this.state.data
-         data.buttonQuantity= event.target.value 
+         data.buttonQuantity= Number(event.target.value) 
         this.setState({data:data})
         break;
         case "productCode" :
@@ -86,7 +86,11 @@ handleChange = name => event =>{
          data.buttonLink= event.target.value 
         this.setState({data:data})
         break;
-
+        case "buttonPrice":
+        var data = this.state.data
+         data.buttonPrice= Number(event.target.value) 
+        this.setState({data:data})
+        break;
         
         
     }
@@ -110,6 +114,14 @@ handleChange = name => event =>{
                 onChange={this.handleChange('buttonQuantity')}
                 margin="normal"
             />
+             Link de botón: <TextField
+                id="buttonPrice"
+                
+                value={this.props.button != null ? this.props.button.buttonPrice : "" }
+                
+                onChange={this.handleChange('buttonPrice')}
+                margin="normal"
+            />
             Código de producto <TextField
                 id="productCode"
                 
@@ -118,7 +130,7 @@ handleChange = name => event =>{
                 onChange={this.handleChange('productCode')}
                 margin="normal"
             />
-            Nombre ce producto: <TextField
+            Nombre de producto: <TextField
                 id="productName"
                 
                 value={this.props.button != null ? this.props.button.productName : "" }

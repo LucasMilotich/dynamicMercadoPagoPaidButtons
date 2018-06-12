@@ -13,19 +13,24 @@ exports.list_all_items = function (req, res) {
   });
 };
 
-exports.create_an_item = function (req, res) {
-  var new_link = new Item(req.body);
-  new_link.save(function (err, item) {
-    if (err)
-      res.send(err);
 
-    generarLinkMP(item).then(function (unLink) {
-      console.log("link: " + unLink);
-      item.buttonLink = unLink;
-      console.log(item);
-      res.json(item);
+exports.create_an_item = function(req, res) {
+  var new_item = new Item(req.body);
+
+  generarLinkMP(new_item).then(function (unLink){
+    console.log("link: "+unLink);
+    new_item.buttonLink=unLink;
+    console.log(new_item);
+
+    new_item.save(function(err, item) {
+      if (err)
+        res.send(err);
+      res.json(item);  
+
     });
+
   });
+
 };
 
 
@@ -51,22 +56,20 @@ exports.read_an_item_by_ProductCode = function (req, res) {
 
 exports.update_an_item = function (req, res) {
   console.log("update_an_item :" + req.params.productCode);
-  Item.findOneAndUpdate({
-    productCode: req.params.productCode
-  }, req.body, {
-    new: true
-  }, function (err, item) {
-    if (err)
-      res.send(err);
 
-    generarLinkMP(item).then(function (unLink) {
-      console.log("link: " + unLink);
-      item.buttonLink = unLink;
-      console.log(item);
-      res.json(item);
+  console.log(req.body)
+  generarLinkMP(req.body).then(function (unLink){
+    console.log("link: "+unLink);
+    req.body.buttonLink=unLink;
+
+    Item.findOneAndUpdate({productCode: req.params.productCode}, req.body, {new: true}, function(err, item) {
+      if (err)
+        res.send(err);
+      res.json(item);  
+
     });
-
   });
+  
 };
 
 
@@ -95,7 +98,7 @@ function generarLinkMP(item) {
         "unit_price": item.buttonPrice
       }]
     };
-
+    console.log(preference);
     mp.createPreference(preference, function (err, data) {
       if (err) {
         reject(err);
