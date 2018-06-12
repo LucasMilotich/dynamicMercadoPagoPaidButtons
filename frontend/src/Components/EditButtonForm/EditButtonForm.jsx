@@ -4,59 +4,137 @@ import Button from '@material-ui/core/Button';
 
 class EditButtonForm extends Component {
 
+    constructor(props){
+        super(props);
+        this.state = {
+            data: props.button
+        }
+
+    }
 
 componentDidUpdate(prevProps){
 
+    if (  this.props.button != null && prevProps.button != this.props.button){
+        this.setState({data:this.props.button})
+    } else {
+        if (this.props.button == null && prevProps.button !== null){
+            this.setState({data:null})
+        }
+    }
     
-
 }
-handleChange(data){
 
+save(){
+
+    let elementToUpdate = this.props.rows.some(row => {
+        return this.state.data.productCode == row.productCode
+    })
+    if (elementToUpdate != null) {
+        
+        this.update()
+
+    } else {
+        this.create()
+        //save new row
+    }
+    alert(JSON.stringify(this.state.data))
+
+   
+  
+}
+create(){
+    fetch('http://localhost:8080/links', 
+    {method:'POST',body: this.state.data})
+    .then(result => alert(result.json()))
+    .catch(err => { console.error(err.toString()) })
+}
+
+update(){
+    fetch('http://localhost:8080/links/' + this.state.data.productCode,
+    {method:'PUT',body: this.state.data})
+    .then(result => alert(result.json()))
+    .catch(err => { console.error(err.toString()) })
+}
+
+delete(){}
+
+handleChange = name => event =>{
+    switch(name){
+        case "buttonTitle":
+        var data = this.state.data
+         data.buttonTitle= event.target.value 
+        this.setState({data:data})
+        break;
+        case "buttonQuantity":
+        var data = this.state.data
+         data.buttonQuantity= event.target.value 
+        this.setState({data:data})
+        break;
+        case "productCode" :
+        var data = this.state.data
+         data.productCode= event.target.value 
+        this.setState({data:data})
+        break;
+        case "productName":
+        var data = this.state.data
+         data.productName= event.target.value 
+        this.setState({data:data})
+        break;
+        case "buttonLink":
+        var data = this.state.data
+         data.buttonLink= event.target.value 
+        this.setState({data:data})
+        break;
+
+        
+        
+    }
 }
     render() {
         return (
         <div>
-            <TextField
+            Titulo de botón: <TextField
                 id="buttonTitle"
-                label="Titulo de botón"
                 
-                value={this.props.button != null ? this.props.button.buttonTitle : null }
-                onChange={this.handleChange('name')}
+                
+                value={this.props.button !== null ? this.props.button.buttonTitle : "" }
+                onChange={this.handleChange('buttonTitle')}
                 margin="normal"
             />
-            <TextField
+            Cantidad: <TextField
                 id="buttonQuantity"
-                label="Cantidad"
-                value={this.props.button != null ? this.props.button.buttonQuantity : null }
                 
-                onChange={this.handleChange('name')}
+                value={this.props.button != null ? this.props.button.buttonQuantity : "" }
+                
+                onChange={this.handleChange('buttonQuantity')}
                 margin="normal"
             />
-            <TextField
+            Código de producto <TextField
                 id="productCode"
-                label="Código de producto"
-                value={this.props.button != null ? this.props.button.productCode : null }
                 
-                onChange={this.handleChange('name')}
+                value={this.props.button != null ? this.props.button.productCode : "" }
+                
+                onChange={this.handleChange('productCode')}
                 margin="normal"
             />
-            <TextField
+            Nombre ce producto: <TextField
                 id="productName"
-                label="Nombre producto"
-                value={this.props.button != null ? this.props.button.productName : null }
                 
-                onChange={this.handleChange('name')}
+                value={this.props.button != null ? this.props.button.productName : "" }
+                
+                onChange={this.handleChange('productName')}
                 margin="normal"
             />
-            <TextField
+            Link de botón: <TextField
                 id="buttonLink"
-                label="Link de botón"
-                value={this.props.button != null ? this.props.button.buttonLink : null }
                 
-                onChange={this.handleChange('name')}
+                value={this.props.button != null ? this.props.button.buttonLink : "" }
+                
+                onChange={this.handleChange('buttonLink')}
                 margin="normal"
             />
-               <Button >Guardar</Button>
+               <Button onClick={this.save.bind(this)}>Guardar </Button>
+               <Button >Borrar</Button>
 
         </div>
     )}
