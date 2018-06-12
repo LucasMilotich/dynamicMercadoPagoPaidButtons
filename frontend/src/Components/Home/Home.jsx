@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
+import EditButtonForm from '../EditButtonForm';
 
 
 const styles = theme => ({
@@ -86,6 +87,8 @@ class Home extends Component {
           })}
         </TableBody>
       </Table>
+
+      <EditButtonForm button={this.state.selectedRow} />
     </Paper>
       );
     }
