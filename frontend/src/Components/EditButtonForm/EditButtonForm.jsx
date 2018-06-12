@@ -19,7 +19,7 @@ componentDidUpdate(prevProps){
             <TextField
                 id="name"
                 label="Name"
-                className={classes.textField}
+                
                 value={this.props.button.buttonTitle}
                 onChange={this.handleChange('name')}
                 margin="normal"
@@ -27,7 +27,7 @@ componentDidUpdate(prevProps){
             <TextField
                 id="name"
                 label="Name"
-                className={classes.textField}
+                
                 value={this.props.button.buttonQuantity}
                 onChange={this.handleChange('name')}
                 margin="normal"
@@ -35,7 +35,7 @@ componentDidUpdate(prevProps){
             <TextField
                 id="name"
                 label="Name"
-                className={classes.textField}
+                
                 value={this.props.button.productCode}
                 onChange={this.handleChange('name')}
                 margin="normal"
@@ -43,7 +43,7 @@ componentDidUpdate(prevProps){
             <TextField
                 id="name"
                 label="Name"
-                className={classes.textField}
+                
                 value={this.props.button.productName}
                 onChange={this.handleChange('name')}
                 margin="normal"
@@ -51,7 +51,7 @@ componentDidUpdate(prevProps){
             <TextField
                 id="name"
                 label="Name"
-                className={classes.textField}
+                
                 value={this.props.button.buttonLink}
                 onChange={this.handleChange('name')}
                 margin="normal"
