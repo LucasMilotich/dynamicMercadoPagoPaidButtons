@@ -35,8 +35,9 @@ class Home extends Component {
     }
   }
 
+
   componentDidMount() {
-    fetch('http://localhost:8080/links').then(result => result.json()).then(rows => {
+    fetch('http://localhost:8080/items').then(result => result.json()).then(rows => {
       rows.forEach(data => { data.selected = false })
       this.setState({ data: rows })
     }).catch(err => { console.error(err.toString()) })
@@ -51,6 +52,7 @@ class Home extends Component {
     this.state.data.forEach(data => {
       if (data.productCode != id) {
         data.selected = false
+
       }
 
     })

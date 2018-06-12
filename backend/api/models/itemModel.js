@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var LinkSchema = new Schema({
+var ItemSchema = new Schema({
   productCode: {
     type: String,
     required: 'Por favor agregar productCode'
@@ -33,4 +33,4 @@ var LinkSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('Links', LinkSchema);
+module.exports = mongoose.model('Items', ItemSchema);

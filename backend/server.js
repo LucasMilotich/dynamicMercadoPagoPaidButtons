@@ -2,7 +2,7 @@ var express = require('express'),
 app = express(),
 port = 8080,
 mongoose = require('mongoose'),
-  Link = require('./api/models/linkModel'), //created model loading here
+  Link = require('./api/models/itemModel'), //created model loading here
 
   
   bodyParser = require('body-parser');
@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-var routes = require('./api/routes/linkRoutes'); //importing route
+var routes = require('./api/routes/itemRoutes'); //importing route
 routes(app); //register the route
 
 app.listen(port);
