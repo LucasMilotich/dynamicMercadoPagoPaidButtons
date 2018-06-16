@@ -15,7 +15,7 @@ mongoose = require('mongoose'),
 });
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/LinksDB'); 
+mongoose.connect('mongodb://localhost/itemsDB'); 
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
