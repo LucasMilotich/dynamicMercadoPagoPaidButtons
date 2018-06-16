@@ -7,7 +7,7 @@ class EditButtonForm extends Component {
     constructor(props){
         super(props);
         this.state = {
-            data: props.button
+            data: null
         }
 
     }
@@ -25,14 +25,14 @@ componentDidUpdate(prevProps){
 }
 
 save(){
-
+    var dis = this;
     let elementToUpdate = this.props.rows.some(row => {
-        return this.state.data.productCode == row.productCode
+        return dis.state.data.productCode == row.productCode
     })
-    if (elementToUpdate != null) {
+    if (elementToUpdate) {
         
         this.update()
-        alert(JSON.stringify(this.state.data))
+        
 
     } else {
         this.create()
@@ -44,51 +44,60 @@ save(){
   
 }
 create(){
+    
     fetch('http://localhost:8080/items', 
-    {method:'POST',body: this.state.data})
-    .then(result => result.json().then( data => alert(JSON.stringify(data))))
-    .catch(err => { console.error(err.toString()) })
+    {method:'POST',body: JSON.stringify(this.state.data),  headers: {"Content-Type": "application/json"}})
+    .then(result => result.json().then( data => alert("Botón creado")))
+    .catch(err => { console.error("Error creando el botón " + err.toString()) })
 }
 
 update(){
     fetch('http://localhost:8080/items/' + this.state.data.productCode,
     {method:'PUT',body: JSON.stringify(this.state.data),    headers: {"Content-Type": "application/json"}
 }) 
-    .then(result => result.json().then( data => alert(JSON.stringify(data))))
-    .catch(err => { console.error(err.toString()) })
+    .then(result => result.json().then( data => alert("Botón actualizado")))
+    .catch(err => { console.error("Hubo un error actualizando el botón  " + err.toString()) })
 }
 
-delete(){}
+delete(){
+    fetch('http://localhost:8080/items/' + this.state.data.productCode,
+    {method:'DELETE',    headers: {"Content-Type": "application/json"}
+}) 
+    .then(result => result.json().then( data => alert("Botón borrado")))
+    .catch(err => { console.error("Hubo un error borrando el botón " + err.toString()) })
+}
 
 handleChange = name => event =>{
+    var data
+    if (this.state.data == null){
+        data = {}
+    } else {
+        data = this.state.data
+    }
     switch(name){
         case "buttonTitle":
-        var data = this.state.data
+        
          data.buttonTitle= event.target.value 
         this.setState({data:data})
         break;
         case "buttonQuantity":
-        var data = this.state.data
+        
          data.buttonQuantity= Number(event.target.value) 
         this.setState({data:data})
         break;
         case "productCode" :
-        var data = this.state.data
+        
          data.productCode= event.target.value 
         this.setState({data:data})
         break;
         case "productName":
-        var data = this.state.data
+        
          data.productName= event.target.value 
         this.setState({data:data})
         break;
-        case "buttonLink":
-        var data = this.state.data
-         data.buttonLink= event.target.value 
-        this.setState({data:data})
-        break;
+      
         case "buttonPrice":
-        var data = this.state.data
+        
          data.buttonPrice= Number(event.target.value) 
         this.setState({data:data})
         break;
@@ -103,22 +112,22 @@ handleChange = name => event =>{
                 id="buttonTitle"
                 
                 
-                value={this.props.button !== null ? this.props.button.buttonTitle : "" }
+                value={this.state.data !== null ? this.state.data.buttonTitle : "" }
                 onChange={this.handleChange('buttonTitle')}
                 margin="normal"
             />
             Cantidad: <TextField
                 id="buttonQuantity"
                 
-                value={this.props.button != null ? this.props.button.buttonQuantity : "" }
+                value={this.state.data != null ? this.state.data.buttonQuantity : "" }
                 
                 onChange={this.handleChange('buttonQuantity')}
                 margin="normal"
             />
-             Link de botón: <TextField
+             Precio: <TextField
                 id="buttonPrice"
                 
-                value={this.props.button != null ? this.props.button.buttonPrice : "" }
+                value={this.state.data != null ? this.state.data.buttonPrice : "" }
                 
                 onChange={this.handleChange('buttonPrice')}
                 margin="normal"
@@ -126,7 +135,7 @@ handleChange = name => event =>{
             Código de producto <TextField
                 id="productCode"
                 
-                value={this.props.button != null ? this.props.button.productCode : "" }
+                value={this.state.data != null ? this.state.data.productCode : "" }
                 
                 onChange={this.handleChange('productCode')}
                 margin="normal"
@@ -134,21 +143,14 @@ handleChange = name => event =>{
             Nombre de producto: <TextField
                 id="productName"
                 
-                value={this.props.button != null ? this.props.button.productName : "" }
+                value={this.state.data != null ? this.state.data.productName : "" }
                 
                 onChange={this.handleChange('productName')}
                 margin="normal"
             />
-            Link de botón: <TextField
-                id="buttonLink"
-                
-                value={this.props.button != null ? this.props.button.buttonLink : "" }
-                
-                onChange={this.handleChange('buttonLink')}
-                margin="normal"
-            />
+           
                <Button onClick={this.save.bind(this)}>Guardar </Button>
-               <Button >Borrar</Button>
+               <Button onClick={this.delete.bind(this)} >Borrar</Button>
 
         </div>
     )}
